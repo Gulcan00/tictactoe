@@ -11,7 +11,10 @@ function createPlayer() {
     }
 }
 
-function createGameboardController() {
+function createGameboardController(
+    player1Name = "Player 1",
+    player2Name = "Player 2"
+) {
     const board = (function createGameboard() {
         const board = [];
         const rows = 3;
@@ -25,7 +28,14 @@ function createGameboardController() {
             }
         }
     
-    
+        const setMark = (row, column, player) => {
+            if (board[row][column] !== '-') {
+                console.log("Not empty!!");
+            } else {
+                board[row][column].addMark(player);
+            }
+        }
+
         const getBoard = () => board;
     
         const printBoard = () => {
@@ -37,8 +47,20 @@ function createGameboardController() {
         }
     
         return {
+            setMark,
             getBoard, 
             printBoard
         }
     })();
+
+    const players = [
+        {
+            name: player1Name,
+            marker: 'X'
+        },
+        {
+            name: player2Name,
+            marker: 'O'
+        }
+    ]
 }
