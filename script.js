@@ -65,6 +65,11 @@ function createGameboardController(
     const getWinner = () => winner;
 
     const checkWin = (board) => {
+        const boardIsFull = board.every(row => row.every(cell => cell !== '-'));
+        if (boardIsFull) {
+            return "tie";
+        }
+
         //Check horizontal
         for (let row = 0; row < 3; ++row) {
             if (board[row][0].getMark() !== '-' && board[row][0].getMark() === board[row][1].getMark() && board[row][1].getMark() === board[row][2].getMark()) {
@@ -112,7 +117,13 @@ function createGameboardController(
         winner = checkWin(board.getBoard());
 
         if (winner) {
-            console.log("win!", winner.getMark());
+            if (winner === "tie") {
+                console.log("It's a tie!");
+            } else {
+            console.log("win!");
+            const player = players.find(player => player.marker === winner);
+            console.log(player.name);
+            }
             board.printBoard();
             return;
         }
