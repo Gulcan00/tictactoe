@@ -36,6 +36,39 @@ function createGameboardController(
             }
         }
 
+        const checkWin = () => {
+            const boardIsFull = board.every(row => row.every(cell => cell.getMark() !== ''));
+            if (boardIsFull) {
+                return {status: "tie", winner: null}
+            }
+    
+            //Check horizontal
+            for (let row = 0; row < 3; ++row) {
+                if (board[row][0].getMark() !== '' && board[row][0].getMark() === board[row][1].getMark() && board[row][1].getMark() === board[row][2].getMark()) {
+                    return {status: "won", winner: board[row][0]};
+                }
+            }
+    
+            //Check vertical
+            for (let col = 0; col < 3; ++col) {
+                if (board[0][col].getMark() !== '' && board[0][col].getMark() === board[1][col].getMark() && board[1][col].getMark() === board[2][col].getMark()) {
+                    return {status: "won", winner: board[0][col]}
+                }
+            }
+    
+            //Check diagonal
+            if (board[0][0].getMark() !== '' && board[0][0].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][2].getMark()) {
+                return {status: "won", winner: board[0][0]}
+            }
+    
+            //Check anti diagonal
+            if (board[0][2].getMark() !== '' && board[0][2].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][0].getMark()) {
+                return {status: "won", winner: board[0][2]};
+            }
+    
+            return {status: "ongoing", winner: null}
+        }
+
         const getBoard = () => board;
 
         const printBoard = () => {
@@ -45,7 +78,8 @@ function createGameboardController(
         return {
             setMark,
             getBoard,
-            printBoard
+            printBoard,
+            checkWin
         }
     })();
 
@@ -64,40 +98,6 @@ function createGameboardController(
 
     const getGameStatus = () => gameStatus;
 
-    const checkWin = (board) => {
-        const boardIsFull = board.every(row => row.every(cell => cell.getMark() !== ''));
-        if (boardIsFull) {
-            return {status: "tie", winner: null}
-        }
-
-        //Check horizontal
-        for (let row = 0; row < 3; ++row) {
-            if (board[row][0].getMark() !== '' && board[row][0].getMark() === board[row][1].getMark() && board[row][1].getMark() === board[row][2].getMark()) {
-                return {status: "won", winner: board[row][0]};
-            }
-        }
-
-        //Check vertical
-        for (let col = 0; col < 3; ++col) {
-            if (board[0][col].getMark() !== '' && board[0][col].getMark() === board[1][col].getMark() && board[1][col].getMark() === board[2][col].getMark()) {
-                return {status: "won", winner: board[0][col]}
-            }
-        }
-
-        //Check diagonal
-        if (board[0][0].getMark() !== '' && board[0][0].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][2].getMark()) {
-            return {status: "won", winner: board[0][0]}
-        }
-
-        //Check anti diagonal
-        if (board[0][2].getMark() !== '' && board[0][2].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][0].getMark()) {
-            return {status: "won", winner: board[0][2]};
-        }
-
-        return {status: "ongoing", winner: null}
-
-    }
-
     let activePlayer = players[0];
 
     const switchActivePlayer = () => {
@@ -114,7 +114,7 @@ function createGameboardController(
     const playRound = (row, col) => {
         board.setMark(row, col, activePlayer.marker);
 
-        gameStatus = checkWin(board.getBoard());
+        gameStatus = board.checkWin();
 
         if (gameStatus.status !== "ongoing") {
             if (gameStatus.status === "tie") {
