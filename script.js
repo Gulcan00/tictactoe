@@ -1,5 +1,5 @@
 function createPlayer() {
-    let value = '-';
+    let value = "";
 
     const addMark = (marker) => value = marker;
 
@@ -121,7 +121,7 @@ function createGameboardController(
                 console.log("It's a tie!");
             } else {
             console.log("win!");
-            const player = players.find(player => player.marker === winner);
+            const player = players.find(player => player.marker === winner.getMark());
             console.log(player.name);
             }
             board.printBoard();
@@ -137,19 +137,40 @@ function createGameboardController(
     return {
         getActivePlayer,
         playRound,
-        getWinner
+        getWinner,
+        getBoard: board.getBoard
     }
 }
 
-const game = createGameboardController();
+(function DisplayController() {
+    const game = createGameboardController();
+    const boardDiv = document.querySelector(".board");
+    const winnerDiv = document.querySelector(".winner");
 
-while(!game.getWinner()) {
-    const row = prompt("row");
-    const col = prompt("col");
+    const updateScreen = () => {
+        boardDiv.innerHTML = null;
+        const board = game.getBoard();
+        board.forEach((row, rowIndex) => row.forEach((cell, colIndex) => {
+            const button = document.createElement("button");
+            button.innerText = cell.getMark();
+            button.dataset.row = rowIndex;
+            button.dataset.col = colIndex;
+            button.addEventListener('click', clickHandlerCell);
+            boardDiv.appendChild(button);
+        }));
 
-    if (!row || !col) {
-        break;
+        if (game.getWinner()) {
+            boardDiv.remove();
+            winnerDiv.innerText = game.getWinner().getMark() + " WON!!!!";
+        }
     }
 
-    game.playRound(row, col);
-}
+    const clickHandlerCell = (e) => {
+        const row = e.target.dataset.row;
+        const col = e.target.dataset.col;
+        game.playRound(row, col);
+        updateScreen();
+    }
+
+    updateScreen();
+})();
