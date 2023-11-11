@@ -65,7 +65,7 @@ function createGameboardController(
     const getWinner = () => winner;
 
     const checkWin = (board) => {
-        const boardIsFull = board.every(row => row.every(cell => cell !== '-'));
+        const boardIsFull = board.every(row => row.every(cell => cell.getMark() !== '-'));
         if (boardIsFull) {
             return "tie";
         }
