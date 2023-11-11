@@ -19,7 +19,7 @@ function createGameboardController(
         const board = [];
         const rows = 3;
         const cols = 3;
-    
+
         //Initial board
         for (let i = 0; i < rows; ++i) {
             board[i] = [];
@@ -27,9 +27,9 @@ function createGameboardController(
                 board[i][j] = createPlayer();
             }
         }
-    
+
         const setMark = (row, column, player) => {
-            if (board[row][column] !== '-') {
+            if (board[row][column].getMark() !== '-') {
                 console.log("Not empty!!");
             } else {
                 board[row][column].addMark(player);
@@ -37,18 +37,14 @@ function createGameboardController(
         }
 
         const getBoard = () => board;
-    
+
         const printBoard = () => {
-            for (let row of board) {
-                for (let cell of row) {
-                    console.log(cell);
-                }
-            }
+            console.log(board.map(row => row.map(cell => cell.getMark())));
         }
-    
+
         return {
             setMark,
-            getBoard, 
+            getBoard,
             printBoard
         }
     })();
@@ -62,5 +58,87 @@ function createGameboardController(
             name: player2Name,
             marker: 'O'
         }
-    ]
+    ];
+
+    let winner;
+
+    const getWinner = () => winner;
+
+    const checkWin = (board) => {
+        //Check horizontal
+        for (let row = 0; row < 3; ++row) {
+            if (board[row][0].getMark() !== '-' && board[row][0].getMark() === board[row][1].getMark() && board[row][1].getMark() === board[row][2].getMark()) {
+                return board[row][0];
+            }
+        }
+
+        //Check vertical
+        for (let col = 0; col < 3; ++col) {
+            if (board[0][col].getMark() !== '-' && board[0][col].getMark() === board[1][col].getMark() && board[1][col].getMark() === board[2][col].getMark()) {
+                return board[0][col];
+            }
+        }
+
+        //Check diagonal
+        if (board[0][0].getMark() !== '-' && board[0][0].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][2].getMark()) {
+            return board[0][0];
+        }
+
+        //Check anti diagonal
+        if (board[0][2].getMark() !== '-' && board[0][2].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][0].getMark()) {
+            return board[0][2];
+        }
+
+        return null;
+
+    }
+
+    let activePlayer = players[0];
+
+    const switchActivePlayer = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    }
+
+    const getActivePlayer = () => activePlayer;
+
+    const printNewRound = () => {
+        board.printBoard();
+        console.log(`${getActivePlayer().name}'s turn`);
+    }
+
+    const playRound = (row, col) => {
+        board.setMark(row, col, activePlayer.marker);
+
+        winner = checkWin(board.getBoard());
+
+        if (winner) {
+            console.log("win!", winner.getMark());
+            board.printBoard();
+            return;
+        }
+        switchActivePlayer();
+        printNewRound();
+    }
+
+    printNewRound();
+
+
+    return {
+        getActivePlayer,
+        playRound,
+        getWinner
+    }
+}
+
+const game = createGameboardController();
+
+while(!game.getWinner()) {
+    const row = prompt("row");
+    const col = prompt("col");
+
+    if (!row || !col) {
+        break;
+    }
+
+    game.playRound(row, col);
 }
