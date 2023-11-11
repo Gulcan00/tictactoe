@@ -1,9 +1,9 @@
 function createPlayer() {
-    let value = "";
+    let mark = "";
 
-    const addMark = (marker) => value = marker;
+    const addMark = (newMark) => mark = newMark;
 
-    const getMark = () => value;
+    const getMark = () => mark;
 
     return {
         addMark,
@@ -160,7 +160,7 @@ function createGameboardController(
         }));
 
         if (game.getWinner()) {
-            boardDiv.remove();
+            boardDiv.style.display = "none";
             winnerDiv.innerText = game.getWinner().getMark() + " WON!!!!";
         }
     }
