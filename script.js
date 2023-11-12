@@ -134,6 +134,19 @@ function createGameboardController(
         printNewRound();
     }
 
+
+    const restartGame = () => {
+        const boardArr = board.getBoard();
+        boardArr.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                boardArr[rowIndex][colIndex] = createPlayer();
+            })
+        });
+
+        gameStatus = {status: "ready", winner: null};
+        activePlayer = players[0];
+    }
+
     printNewRound();
 
 
@@ -141,7 +154,8 @@ function createGameboardController(
         getActivePlayer,
         playRound,
         getGameStatus,
-        getBoard: board.getBoard
+        getBoard: board.getBoard,
+        restartGame
     }
 }
 
@@ -149,6 +163,7 @@ function createGameboardController(
     const game = createGameboardController();
     const boardDiv = document.querySelector(".board");
     const winnerDiv = document.querySelector(".winner");
+    const restartBtn = document.querySelector(".winner>button");
 
     const updateScreen = () => {
         boardDiv.innerHTML = null;
@@ -163,9 +178,13 @@ function createGameboardController(
         }));
 
         if (game.getGameStatus().status === "won") {
-            winnerDiv.innerText = game.getActivePlayer().name + " WON!!!!";
+            const text = document.createTextNode(game.getActivePlayer().name + " WON!!!!");
+            winnerDiv.insertBefore(text, restartBtn);
+            winnerDiv.parentNode.style.display = "flex";
         } else if (game.getGameStatus().status === "tie") {
-            winnerDiv.innerText = "tie!!!";
+            const text = document.createTextNode("tie!!");
+            winnerDiv.insertBefore(text, restartBtn);
+            winnerDiv.parentNode.style.display = "flex";
         }
     }
 
@@ -175,6 +194,16 @@ function createGameboardController(
         game.playRound(row, col);
         updateScreen();
     }
+
+    const clickRestart = (e) => {
+        game.restartGame();
+        winnerDiv.parentNode.style.display = "none";
+        winnerDiv.innerHTML = null;
+        winnerDiv.appendChild(restartBtn);
+        updateScreen();
+    }
+
+    restartBtn.addEventListener('click', clickRestart);
 
     updateScreen();
 })();

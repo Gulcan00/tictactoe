@@ -22,14 +22,17 @@ body {
     @apply bg-white border-8 border-gray-900 gap-2;
 }
 
-button {
+.board > button {
     appearance: none;
     font-family: "Permanent Marker", sans-serif;
     font-size: 6.5rem;
     @apply bg-gray-900 text-white cursor-pointer flex items-center justify-center;
 }
 
+.container > :nth-child(2){
+    @apply fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden;
+}
+
 .winner {
-    background-color: aqua;
-    
+    @apply bg-white p-4 rounded-md w-40;
 }
