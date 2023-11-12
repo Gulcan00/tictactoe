@@ -159,10 +159,8 @@ function createGameboardController(
         }));
 
         if (game.getGameStatus().status === "won") {
-            boardDiv.style.display = "none";
             winnerDiv.innerText = game.getActivePlayer().name + " WON!!!!";
         } else if (game.getGameStatus().status === "tie") {
-            boardDiv.style.display = "none";
             winnerDiv.innerText = "tie!!!";
         }
     }

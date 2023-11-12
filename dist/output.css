@@ -585,10 +585,10 @@ body {
 .board {
   display: grid;
   grid-template: repeat(3, 150px) / repeat(3, 200px);
-  gap: 15px;
-  border-width: 4px;
+  gap: 0.5rem;
+  border-width: 8px;
   --tw-border-opacity: 1;
-  border-color: rgb(31 41 55 / var(--tw-border-opacity));
+  border-color: rgb(17 24 39 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
@@ -599,7 +599,10 @@ button {
           appearance: none;
   font-family: "Permanent Marker", sans-serif;
   font-size: 6.5rem;
+  display: flex;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
