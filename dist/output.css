@@ -582,8 +582,9 @@ body {
 .container {
   height: 100%;
   display: flex;
+  flex-direction: column;
+  gap: 16px;
   align-items: center;
-  justify-content: center;
 }
 
 .board {
@@ -613,7 +614,7 @@ body {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.container > :nth-child(2) {
+.container > :nth-child(3) {
   position: fixed;
   inset: 0px;
   display: flex;
@@ -652,4 +653,9 @@ body {
 .winner > button:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 1;
 }

@@ -12,8 +12,9 @@ body {
 .container {
     height: 100%;
     display: flex;
+    flex-direction: column;
+    gap: 16px;
     align-items: center;
-    justify-content: center;
 }
 
 .board {
@@ -29,7 +30,7 @@ body {
     @apply bg-gray-900 text-white cursor-pointer flex items-center justify-center;
 }
 
-.container > :nth-child(2){
+.container > :nth-child(3){
     @apply fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden;
 }
 
@@ -39,4 +40,8 @@ body {
 
 .winner > button {
     @apply p-2 rounded-md shadow bg-blue-500 text-white max-w-min hover:bg-blue-400;
+}
+
+h1 {
+    @apply text-5xl;
 }
