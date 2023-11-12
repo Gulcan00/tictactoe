@@ -30,7 +30,7 @@ function createGameboardController(
 
         const setMark = (row, column, player) => {
             if (board[row][column].getMark() !== '') {
-                console.log("Not empty!!");
+                throw new Error('Cell already full');
             } else {
                 board[row][column].addMark(player);
             }
@@ -112,7 +112,11 @@ function createGameboardController(
     }
 
     const playRound = (row, col) => {
+        try {
         board.setMark(row, col, activePlayer.marker);
+        } catch (e) {
+            return;
+        }
 
         gameStatus = board.checkWin();
 
