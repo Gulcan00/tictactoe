@@ -635,8 +635,8 @@ body {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding: 1rem;
-  font-size: 3rem;
-  line-height: 1;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .btn {

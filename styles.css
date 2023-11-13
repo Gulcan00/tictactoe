@@ -35,7 +35,7 @@ body {
 }
 
 .result {
-    @apply bg-white p-4 rounded-md flex flex-col gap-4 text-5xl max-w-xs w-full;
+    @apply bg-white p-4 rounded-md flex flex-col gap-4 text-4xl max-w-xs w-full;
 }
 
 .btn {
