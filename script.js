@@ -162,8 +162,8 @@ function createGameboardController(
 (function DisplayController() {
     const game = createGameboardController();
     const boardDiv = document.querySelector(".board");
-    const winnerDiv = document.querySelector(".winner");
-    const restartBtn = document.querySelector(".winner>button");
+    const resultDiv = document.querySelector(".result");
+    const restartBtn = document.querySelector(".result>button");
 
     const updateScreen = () => {
         boardDiv.innerHTML = null;
@@ -179,12 +179,12 @@ function createGameboardController(
 
         if (game.getGameStatus().status === "won") {
             const text = document.createTextNode(game.getActivePlayer().name + " WON!!!!");
-            winnerDiv.insertBefore(text, restartBtn);
-            winnerDiv.parentNode.style.display = "flex";
+            resultDiv.insertBefore(text, restartBtn);
+            resultDiv.parentNode.style.display = "flex";
         } else if (game.getGameStatus().status === "tie") {
             const text = document.createTextNode("tie!!");
-            winnerDiv.insertBefore(text, restartBtn);
-            winnerDiv.parentNode.style.display = "flex";
+            resultDiv.insertBefore(text, restartBtn);
+            resultDiv.parentNode.style.display = "flex";
         }
     }
 
@@ -197,13 +197,11 @@ function createGameboardController(
 
     const clickRestart = (e) => {
         game.restartGame();
-        winnerDiv.parentNode.style.display = "none";
-        winnerDiv.innerHTML = null;
-        winnerDiv.appendChild(restartBtn);
+        resultDiv.parentNode.style.display = "none";
+        resultDiv.innerHTML = null;
+        resultDiv.appendChild(restartBtn);
         updateScreen();
     }
 
     restartBtn.addEventListener('click', clickRestart);
-
-    updateScreen();
 })();

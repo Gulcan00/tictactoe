@@ -38,7 +38,7 @@ body {
     @apply bg-white p-4 rounded-md w-40 flex flex-col gap-4;
 }
 
-.winner > button {
+.result > button {
     @apply p-2 rounded-md shadow bg-blue-500 text-white max-w-min hover:bg-blue-400;
 }
 
