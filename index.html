@@ -13,10 +13,16 @@
 <body>
     <div class="container">
         <h1>Tic Tac Toe</h1>
-        <div class="board"></div>
+        <div class="board">
+            <form>
+                <label for="player1">Player 1<input id="player1" name="player1" type="text" value="Player 1"></label>
+                <label for="player2">Player 2<input id="player2" name="player2" type="text" value="Player 2"></label>
+                <button class="btn">Start</button>
+            </form>
+        </div>
         <div>
             <div class="result">
-                <button type="button">Restart</button>
+                <button type="button" class="btn">Restart</button>
             </div>
         </div>
     </div>

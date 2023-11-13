@@ -30,18 +30,35 @@ body {
     @apply bg-gray-900 text-white cursor-pointer flex items-center justify-center;
 }
 
-.container > :nth-child(3){
+.container > :last-child {
     @apply fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden;
 }
 
-.winner {
-    @apply bg-white p-4 rounded-md w-40 flex flex-col gap-4;
+.result {
+    @apply bg-white p-4 rounded-md flex flex-col gap-4 text-5xl max-w-xs w-full;
 }
 
-.result > button {
-    @apply p-2 rounded-md shadow bg-blue-500 text-white max-w-min hover:bg-blue-400;
+.btn {
+    @apply p-2 rounded-md shadow bg-blue-500 text-white max-w-min hover:bg-blue-400 text-base;
 }
 
 h1 {
     @apply text-5xl;
+}
+
+form {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 3;
+    justify-content: center;
+    align-items: center;
+    @apply flex flex-col gap-4;
+}
+
+input {
+    appearance: none;
+    @apply border border-gray-400 rounded-md p-1 focus:border-blue-400 focus:shadow focus:shadow-blue-400 outline-none;
+}
+
+label {
+    @apply flex flex-col gap-4;
 }

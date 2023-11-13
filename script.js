@@ -36,12 +36,7 @@ function createGameboardController(
             }
         }
 
-        const checkWin = () => {
-            const boardIsFull = board.every(row => row.every(cell => cell.getMark() !== ''));
-            if (boardIsFull) {
-                return {status: "tie", winner: null}
-            }
-    
+        const checkWin = () => {    
             //Check horizontal
             for (let row = 0; row < 3; ++row) {
                 if (board[row][0].getMark() !== '' && board[row][0].getMark() === board[row][1].getMark() && board[row][1].getMark() === board[row][2].getMark()) {
@@ -64,6 +59,11 @@ function createGameboardController(
             //Check anti diagonal
             if (board[0][2].getMark() !== '' && board[0][2].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][0].getMark()) {
                 return {status: "won", winner: board[0][2]};
+            }
+
+            const boardIsFull = board.every(row => row.every(cell => cell.getMark() !== ''));
+            if (boardIsFull) {
+                return {status: "tie", winner: null}
             }
     
             return {status: "ongoing", winner: null}
@@ -160,10 +160,11 @@ function createGameboardController(
 }
 
 (function DisplayController() {
-    const game = createGameboardController();
+    let game;
     const boardDiv = document.querySelector(".board");
     const resultDiv = document.querySelector(".result");
     const restartBtn = document.querySelector(".result>button");
+    const startBtn = document.querySelector("form>button");
 
     const updateScreen = () => {
         boardDiv.innerHTML = null;
@@ -178,11 +179,11 @@ function createGameboardController(
         }));
 
         if (game.getGameStatus().status === "won") {
-            const text = document.createTextNode(game.getActivePlayer().name + " WON!!!!");
+            const text = document.createTextNode(game.getActivePlayer().name + " won!");
             resultDiv.insertBefore(text, restartBtn);
             resultDiv.parentNode.style.display = "flex";
         } else if (game.getGameStatus().status === "tie") {
-            const text = document.createTextNode("tie!!");
+            const text = document.createTextNode("It's a tie!");
             resultDiv.insertBefore(text, restartBtn);
             resultDiv.parentNode.style.display = "flex";
         }
@@ -204,4 +205,18 @@ function createGameboardController(
     }
 
     restartBtn.addEventListener('click', clickRestart);
+
+    const clickStart = (e) => {
+        e.preventDefault();
+        const form = document.querySelector("form");
+        const formData = new FormData(form);
+        const player1 = formData.get("player1");
+        const player2 = formData.get("player2");
+        game = createGameboardController(player1, player2);
+        form.style.display = "none";
+        updateScreen();
+    }
+
+    startBtn.addEventListener('click', clickStart);
+
 })();
