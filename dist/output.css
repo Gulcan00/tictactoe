@@ -640,8 +640,7 @@ body {
 }
 
 .btn {
-  max-width: -moz-min-content;
-  max-width: min-content;
+  width: 4rem;
   border-radius: 0.375rem;
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
@@ -670,9 +669,12 @@ form {
   grid-row: 1 / span 3;
   justify-content: center;
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
 }
 
 input {
@@ -702,4 +704,15 @@ label {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.board-border {
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(66 32 6 / var(--tw-bg-opacity));
+  padding: 0.75rem;
+}
+
+.material-symbols-outlined.md-48 {
+  font-size: 48px;
 }

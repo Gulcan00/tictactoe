@@ -39,7 +39,7 @@ body {
 }
 
 .btn {
-    @apply p-2 rounded-md shadow bg-blue-500 text-white max-w-min hover:bg-blue-400 text-base;
+    @apply p-2 rounded-md shadow bg-blue-500 text-white w-16 hover:bg-blue-400 text-base;
 }
 
 h1 {
@@ -51,7 +51,7 @@ form {
     grid-row: 1 / span 3;
     justify-content: center;
     align-items: center;
-    @apply flex flex-col gap-4;
+    @apply grid grid-cols-2 gap-x-8 mx-8;
 }
 
 input {
@@ -61,4 +61,12 @@ input {
 
 label {
     @apply flex flex-col gap-4;
+}
+
+.board-border {
+    @apply p-3 bg-yellow-950 rounded-md
+}
+
+.material-symbols-outlined.md-48 {
+    font-size: 48px;
 }
